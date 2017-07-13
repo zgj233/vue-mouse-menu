@@ -1,0 +1,41 @@
+{
+  "name": "vue-mouse-menu",
+  "description": "A right-menu plug-in for Vue.js 2+",
+  "version": "1.0.0",
+  "author": "zgj <769995666@qq.com>",
+  "private": false,
+  "scripts": {
+    "build": "webpack --progress --hide-modules"
+  },
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zgj233/vue-mouse-menu.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zgj233/vue-mouse-menu/issues"
+  },
+  "peerDependencies": {
+    "vue": "^2.0.0"
+  },
+  "keywords": [
+    "context",
+    "menu",
+    "popup",
+    "vue"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.0.0",
+    "babel-loader": "^6.0.0",
+    "babel-preset-latest": "^6.0.0",
+    "css-loader": "^0.25.0",
+    "file-loader": "^0.9.0",
+    "node-sass": "^4.5.0",
+    "sass-loader": "^5.0.1",
+    "style-loader": "^0.18.2",
+    "vue": "^2.0.0",
+    "vue-loader": "^11.1.4",
+    "vue-template-compiler": "^2.0.0",
+    "webpack": "^2.2.0"
+  }
+}
