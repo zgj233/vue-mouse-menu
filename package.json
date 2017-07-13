@@ -1,6 +1,6 @@
 {
   "name": "vue-mouse-menu",
-  "description": "A right-menu plug-in for Vue.js 2+",
+  "description": "A right-mouse menu plug-in for Vue.js 2+",
   "version": "1.0.0",
   "author": "zgj <769995666@qq.com>",
   "private": false,

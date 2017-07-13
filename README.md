@@ -1,6 +1,6 @@
 # context-menu
 
-> A right-menu plug-in for vue2 +
+> A right-mouse menu plug-in for Vue.js 2+
 
 ## Before run
 
