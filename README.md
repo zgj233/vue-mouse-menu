@@ -2,10 +2,9 @@
 
 > A right-mouse menu plug-in for Vue.js 2+
 
+![demonstration](https://github.com/zgj233/vue-mouse-menu/blob/master/GIF.gif)
+
 ## Before run
-```html
-<img src="./GIF.gif" alt="demonstration" style="width: 100%;height: 100%">
-```
 
 ``` bash
 Note if you installed vue2.0 and This is belong to the SPA plug-in
