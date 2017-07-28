@@ -96,7 +96,7 @@ If not, you can still run, but the style will not look good.
   }
 </script>
 ```
->**<right-menu></right-menu>** Is the only component currently. You can not only just choose it,
+>**right-menu** Is the only component currently. You can not only just choose it,
 but also must be written to.
 
 ## Insert the custom element
