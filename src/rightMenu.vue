@@ -1,5 +1,6 @@
 <template>
   <div v-if="showPop" class="menu-box" :style="freeStyle">
+    <slot name="above"></slot>
     <ul class="list-unstyled">
       <li v-for="(item,it) in items" @click="listItemClick(it)">
         <span>
@@ -8,12 +9,16 @@
         <span>{{item.txt}}</span>
       </li>
     </ul>
+    <slot name="below"></slot>
   </div>
 </template>
 
 <script>
   export default{
-    props:['popItems','mouse', 'slotArr'],
+    props: [
+      'popItems', 'mouse', 'zIndex', 'width', 'height', 'border','padding',
+      'boxShadow','background','borderRadius','color'
+    ],
     data(){
       return {
         freeStyle:'',
@@ -29,7 +34,13 @@
           self.showPop = false
         }
         else {
-          self.freeStyle = `left:${x}px; top:${y}px;`;    //计算鼠标位置
+          self.freeStyle = `left:${x}px; top:${y}px;` +                  //计算鼠标位置
+                           `z-index:${self.zIndex};
+                            width:${self.width}; height:${self.height};
+                            border:${self.border}; padding: ${self.padding};
+                            box-shadow:${self.boxShadow}; background: ${self.background};
+                            border-radius:${self.borderRadius}; color: ${self.color}
+                           `;
           self.showPop = true
         }
 
@@ -80,10 +91,10 @@
     box-sizing: border-box;
   }
   .menu-box ul li+li{
-    border-top: 1px solid #bebebe;
+    border-top: 1px solid;
   }
   .menu-box ul li:hover{
-    background-color: #ddd;
+    background: rgba(255,255,255,0.2);
   }
   .menu-box ul li span{
     display: inline-block;
