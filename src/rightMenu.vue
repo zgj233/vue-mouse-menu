@@ -51,9 +51,9 @@
         return this.popItems
       }
     },
-    created(){
-      document.oncontextmenu = preventExplorerMenu;
-    },
+    //created(){
+    //  document.oncontextmenu = preventExplorerMenu;
+    //},
 
     methods: {
       listItemClick(it){
@@ -62,7 +62,10 @@
       }
     },
     mounted(){
-
+      this.$el.parentElement.oncontextmenu = preventExplorerMenu; 
+    },
+    destroyed() {
+      this.$el.parentElement.oncontextmenu = null;
     }
   }
 
