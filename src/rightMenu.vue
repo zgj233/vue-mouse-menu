@@ -60,7 +60,13 @@
       showPop(showPop) {
         const {overrideOncontextmenu, resetOncontextmenu} = this;
 
-        showPop ? overrideOncontextmenu() : resetOncontextmenu() ;
+        if (showPop) {
+          overrideOncontextmenu();
+          this.$emit("open");
+        } else {
+          resetOncontextmenu();
+          this.$emit("close");
+        };
       }
     },
     computed:{
@@ -86,7 +92,7 @@
 
     destroyed() {
       this.resetOncontextmenu();
-      document.body.removeChild(this.menu);
+      this.menu && this.menu.parentNode == document.body && document.body.removeChild(this.menu);
     }
   }
 
