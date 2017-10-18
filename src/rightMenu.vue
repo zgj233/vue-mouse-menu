@@ -1,15 +1,17 @@
 <template>
-  <div v-if="showPop" class="menu-box" :style="freeStyle">
-    <slot name="above"></slot>
-    <ul class="list-unstyled">
-      <li v-for="(item,it) in items" @click="listItemClick(it)">
-        <span>
-          <i :class="item.class"></i>
-        </span>
-        <span>{{item.txt}}</span>
-      </li>
-    </ul>
-    <slot name="below"></slot>
+  <div>
+    <div v-if="showPop" class="menu-box" :style="freeStyle" ref="menu">
+      <slot name="above"></slot>
+      <ul class="list-unstyled">
+        <li v-for="(item,it) in items" @click="listItemClick(it)">
+          <span>
+            <i :class="item.class"></i>
+          </span>
+          <span>{{item.txt}}</span>
+        </li>
+      </ul>
+      <slot name="below"></slot>
+    </div>
   </div>
 </template>
 
@@ -34,6 +36,7 @@
           self.showPop = false
         }
         else {
+          
           self.freeStyle = `left:${x}px; top:${y}px;` +                  //计算鼠标位置
                            `z-index:${self.zIndex};
                             width:${self.width}; height:${self.height};
@@ -41,9 +44,29 @@
                             box-shadow:${self.boxShadow}; background: ${self.background};
                             border-radius:${self.borderRadius}; color: ${self.color}
                            `;
-          self.showPop = true
+          self.showPop = true;
+
+          if (!this.$refs.menu) {
+            this.$nextTick(() => {
+                const {menu} = this.$refs;
+
+                this.menu = menu;
+                document.body.appendChild(menu);
+            });
+          };
         }
 
+      },
+      showPop(showPop) {
+        const {overrideOncontextmenu, resetOncontextmenu} = this;
+
+        if (showPop) {
+          overrideOncontextmenu();
+          this.$emit("open");
+        } else {
+          resetOncontextmenu();
+          this.$emit("close");
+        };
       }
     },
     computed:{
@@ -51,21 +74,25 @@
         return this.popItems
       }
     },
-    //created(){
-    //  document.oncontextmenu = preventExplorerMenu;
-    //},
 
     methods: {
       listItemClick(it){
         let self = this;
         self.$emit('ListItemClick',it);
+      },
+
+      overrideOncontextmenu() {
+         document.body.oncontextmenu = preventExplorerMenu;
+      },
+
+      resetOncontextmenu() {
+        document.body.oncontextmenu = null;
       }
     },
-    mounted(){
-      this.$el.parentElement.oncontextmenu = preventExplorerMenu; 
-    },
+
     destroyed() {
-      this.$el.parentElement.oncontextmenu = null;
+      this.resetOncontextmenu();
+      this.menu && this.menu.parentNode == document.body && document.body.removeChild(this.menu);
     }
   }
 
