@@ -7,7 +7,7 @@
           <span>
             <i :class="item.class"></i>
           </span>
-          <span>{{item.txt}}</span>
+          <span v-html="item.txt"></span>
         </li>
       </ul>
       <slot name="below"></slot>
