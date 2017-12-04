@@ -123,9 +123,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['popItems', 'mouse', 'slotArr'],
+  props: ['popItems', 'mouse', 'zIndex', 'width', 'height', 'border', 'padding', 'boxShadow', 'background', 'borderRadius', 'color'],
   data: function data() {
     return {
       freeStyle: '',
@@ -135,15 +139,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
   watch: {
     mouse: function mouse() {
+      var _this = this;
+
       var self = this;
       var x = self.mouse[0];
       var y = self.mouse[1];
       if (x === 'close') {
         self.showPop = false;
       } else {
-        self.freeStyle = 'left:' + x + 'px; top:' + y + 'px;'; //计算鼠标位置
+
+        self.freeStyle = 'left:' + x + 'px; top:' + y + 'px;' + ( //计算鼠标位置
+        'z-index:' + self.zIndex + ';\n                          width:' + self.width + '; height:' + self.height + ';\n                          border:' + self.border + '; padding: ' + self.padding + ';\n                          box-shadow:' + self.boxShadow + '; background: ' + self.background + ';\n                          border-radius:' + self.borderRadius + '; color: ' + self.color + '\n                         ');
         self.showPop = true;
+
+        if (!this.$refs.menu) {
+          this.$nextTick(function () {
+            var menu = _this.$refs.menu;
+
+
+            _this.menu = menu;
+            document.body.appendChild(menu);
+          });
+        };
       }
+    },
+    showPop: function showPop(_showPop) {
+      var overrideOncontextmenu = this.overrideOncontextmenu,
+          resetOncontextmenu = this.resetOncontextmenu;
+
+
+      if (_showPop) {
+        overrideOncontextmenu();
+        this.$emit("open");
+      } else {
+        resetOncontextmenu();
+        this.$emit("close");
+      };
     }
   },
   computed: {
@@ -151,18 +182,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return this.popItems;
     }
   },
-  created: function created() {
-    document.oncontextmenu = preventExplorerMenu;
-  },
-
 
   methods: {
     listItemClick: function listItemClick(it) {
       var self = this;
       self.$emit('ListItemClick', it);
+    },
+    overrideOncontextmenu: function overrideOncontextmenu() {
+      document.body.oncontextmenu = preventExplorerMenu;
+    },
+    resetOncontextmenu: function resetOncontextmenu() {
+      document.body.oncontextmenu = null;
     }
   },
-  mounted: function mounted() {}
+
+  destroyed: function destroyed() {
+    this.resetOncontextmenu();
+    this.menu && this.menu.parentNode == document.body && document.body.removeChild(this.menu);
+  }
 });
 
 function preventExplorerMenu() {
@@ -198,7 +235,7 @@ exports = module.exports = __webpack_require__(5)();
 
 
 // module
-exports.push([module.i, ".menu-box[data-v-0af63bc6]{border:1px solid #ddd;width:150px;padding:5px 10px;box-shadow:2px 2px 2px #aaa;position:absolute;z-index:10;background-color:#eee}.menu-box>ul[data-v-0af63bc6]{margin:auto}.menu-box ul li[data-v-0af63bc6]{cursor:pointer;height:30px;line-height:30px;box-sizing:border-box}.menu-box ul li+li[data-v-0af63bc6]{border-top:1px solid #bebebe}.menu-box ul li[data-v-0af63bc6]:hover{background-color:#ddd}.menu-box ul li span[data-v-0af63bc6]{display:inline-block}.menu-box ul li span[data-v-0af63bc6]:first-child{margin-right:5px}", ""]);
+exports.push([module.i, ".menu-box[data-v-0af63bc6]{border:1px solid #ddd;width:150px;padding:5px 10px;box-shadow:2px 2px 2px #aaa;position:absolute;z-index:10;background-color:#eee}.menu-box>ul[data-v-0af63bc6]{margin:auto}.menu-box ul li[data-v-0af63bc6]{cursor:pointer;height:30px;line-height:30px;box-sizing:border-box}.menu-box ul li+li[data-v-0af63bc6]{border-top:1px solid}.menu-box ul li[data-v-0af63bc6]:hover{background:hsla(0,0%,100%,.2)}.menu-box ul li span[data-v-0af63bc6]{display:inline-block}.menu-box ul li span[data-v-0af63bc6]:first-child{margin-right:5px}", ""]);
 
 // exports
 
@@ -321,10 +358,11 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.showPop) ? _c('div', {
+  return _c('div', [(_vm.showPop) ? _c('div', {
+    ref: "menu",
     staticClass: "menu-box",
     style: (_vm.freeStyle)
-  }, [_c('ul', {
+  }, [_vm._t("above"), _vm._v(" "), _c('ul', {
     staticClass: "list-unstyled"
   }, _vm._l((_vm.items), function(item, it) {
     return _c('li', {
@@ -335,8 +373,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('span', [_c('i', {
       class: item.class
-    })]), _vm._v(" "), _c('span', [_vm._v(_vm._s(item.txt))])])
-  }))]) : _vm._e()
+    })]), _vm._v(" "), _c('span', {
+      domProps: {
+        "innerHTML": _vm._s(item.txt)
+      }
+    })])
+  })), _vm._v(" "), _vm._t("below")], 2) : _vm._e()])
 },staticRenderFns: []}
 
 /***/ }),
