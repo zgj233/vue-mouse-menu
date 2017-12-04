@@ -129,7 +129,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['popItems', 'mouse', 'zIndex', 'width', 'height', 'border', 'padding', 'boxShadow', 'background', 'borderRadius', 'color'],
+  props: ['popItems', 'mouse', 'classItemName', 'zIndex', 'width', 'height', 'border', 'padding', 'boxShadow', 'background', 'borderRadius', 'color'],
   data: function data() {
     return {
       freeStyle: '',
@@ -374,6 +374,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('span', [_c('i', {
       class: item.class
     })]), _vm._v(" "), _c('span', {
+      class: _vm.classItemName,
       domProps: {
         "innerHTML": _vm._s(item.txt)
       }
