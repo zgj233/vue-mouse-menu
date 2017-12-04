@@ -7,7 +7,7 @@
           <span>
             <i :class="item.class"></i>
           </span>
-          <span v-html="item.txt"></span>
+          <span v-html="item.txt" :class="classItemName"></span>
         </li>
       </ul>
       <slot name="below"></slot>
@@ -18,7 +18,7 @@
 <script>
   export default{
     props: [
-      'popItems', 'mouse', 'zIndex', 'width', 'height', 'border','padding',
+      'popItems', 'mouse', 'classItemName', 'zIndex', 'width', 'height', 'border','padding',
       'boxShadow','background','borderRadius','color'
     ],
     data(){
