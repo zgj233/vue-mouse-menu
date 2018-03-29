@@ -130,45 +130,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['popItems', 'mouse', 'classItemName', 'zIndex', 'width', 'height', 'border', 'padding', 'boxShadow', 'background', 'borderRadius', 'color'],
-  data: function data() {
+  data() {
     return {
       freeStyle: '',
       showPop: false
     };
   },
-
   watch: {
-    mouse: function mouse() {
-      var _this = this;
-
-      var self = this;
-      var x = self.mouse[0];
-      var y = self.mouse[1];
+    mouse() {
+      let self = this;
+      let x = self.mouse[0];
+      let y = self.mouse[1];
       if (x === 'close') {
         self.showPop = false;
       } else {
 
-        self.freeStyle = 'left:' + x + 'px; top:' + y + 'px;' + ( //计算鼠标位置
-        'z-index:' + self.zIndex + ';\n                          width:' + self.width + '; height:' + self.height + ';\n                          border:' + self.border + '; padding: ' + self.padding + ';\n                          box-shadow:' + self.boxShadow + '; background: ' + self.background + ';\n                          border-radius:' + self.borderRadius + '; color: ' + self.color + '\n                         ');
+        self.freeStyle = `left:${x}px; top:${y}px;` + //计算鼠标位置
+        `z-index:${self.zIndex};
+                          width:${self.width}; height:${self.height};
+                          border:${self.border}; padding: ${self.padding};
+                          box-shadow:${self.boxShadow}; background: ${self.background};
+                          border-radius:${self.borderRadius}; color: ${self.color}
+                         `;
         self.showPop = true;
 
         if (!this.$refs.menu) {
-          this.$nextTick(function () {
-            var menu = _this.$refs.menu;
+          this.$nextTick(() => {
+            const { menu } = this.$refs;
 
-
-            _this.menu = menu;
+            this.menu = menu;
             document.body.appendChild(menu);
           });
         };
       }
     },
-    showPop: function showPop(_showPop) {
-      var overrideOncontextmenu = this.overrideOncontextmenu,
-          resetOncontextmenu = this.resetOncontextmenu;
+    showPop(showPop) {
+      const { overrideOncontextmenu, resetOncontextmenu } = this;
 
-
-      if (_showPop) {
+      if (showPop) {
         overrideOncontextmenu();
         this.$emit("open");
       } else {
@@ -178,25 +177,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   computed: {
-    items: function items() {
+    items() {
       return this.popItems;
     }
   },
 
   methods: {
-    listItemClick: function listItemClick(it) {
-      var self = this;
+    listItemClick(it) {
+      let self = this;
       self.$emit('ListItemClick', it);
     },
-    overrideOncontextmenu: function overrideOncontextmenu() {
+
+    overrideOncontextmenu() {
       document.body.oncontextmenu = preventExplorerMenu;
     },
-    resetOncontextmenu: function resetOncontextmenu() {
+
+    resetOncontextmenu() {
       document.body.oncontextmenu = null;
     }
   },
 
-  destroyed: function destroyed() {
+  destroyed() {
     this.resetOncontextmenu();
     this.menu && this.menu.parentNode == document.body && document.body.removeChild(this.menu);
   }
@@ -218,8 +219,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rightMenu_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__rightMenu_vue__);
 
 
-var plugin = {
-    install: function install(Vue, options) {
+const plugin = {
+    install(Vue, options) {
         Vue.component('RightMenu', __WEBPACK_IMPORTED_MODULE_1__rightMenu_vue___default.a);
     }
 };
