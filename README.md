@@ -201,7 +201,7 @@ See something cool.
           </tr>
           <tr>
             <td>mouse</td>
-            <td>菜单出现的位置， 锚点是菜单的左上角</td>
+            <td>菜单出现的位置，锚点是菜单的左上角<br>如果值为 ['close']，则关闭菜单 </td>
             <td>-</td>
           </tr>
           <tr>
