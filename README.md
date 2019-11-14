@@ -1,4 +1,6 @@
-# context-menu
+
+## vue-mouse-menu@1.1.0
+**😭 Old version, no longer supported**
 
 > A right-mouse menu plug-in for Vue.js 2+
 
