@@ -1,0 +1,48 @@
+$white: white;
+$white-smoke: whitesmoke;
+$blue-smoke: #dcdfe6;
+$light-smoke: #f8f8f8;
+$e5: #e5e5e5;
+$light-blue: #409EFF;
+$orange: #ff8240;
+$yellow: #fecf45;
+$red: #f55066;
+$purple: #ca7497;
+$LightSkyBlue: LightSkyBlue;
+$green: mediumseagreen;
+$darkGray: darkgray;
+$gray: #8492a6;
+$light-gray: #C9C9C9;
+$silver: silver;
+$light-black: #555;
+
+@mixin over-ellipsis{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+h4{
+  margin-top: auto;
+}
+
+table {
+  border: 1px solid $light-black;
+  border-collapse: collapse;
+  thead{
+    background: $light-gray;
+  }
+  td{
+    border: 1px solid $light-black;
+    padding: 10px;
+  }
+}
+
+ul{
+  list-style: none;
+  padding: 0;
+  li{
+    font-size: 1rem;
+    padding: 4px 8px;
+    @include over-ellipsis
+  }
+}

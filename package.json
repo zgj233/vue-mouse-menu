@@ -1,0 +1,59 @@
+{
+  "name": "vue-mouse-menu",
+  "version": "2.0.1",
+  "description": "vue-mouse-menu is a vue2.6+ plug-in that supports multi-terminal operation and is used for pop-up menu",
+  "author": "zgj233",
+  "keywords": [
+    "mouse-menu",
+    "plug-in",
+    "vue",
+    "webpack"
+  ],
+  "scripts": {
+    "dist-test": "http-server ./dist-test/ -p 7030 -o http://localhost:7030/index.html",
+    "start-example": "webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "profile-prod": "webpack --config webpack.prod.js --json > ./prod-stats.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "peerDependencies": {
+    "vue": "^2.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zgj233/vue-mouse-menu.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zgj233/vue-mouse-menu/issues"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.2.1",
+    "file-loader": "^4.3.0",
+    "html-webpack-plugin": "^3.2.0",
+    "http-server": "^0.11.1",
+    "install": "^0.13.0",
+    "lodash": "^4.17.15",
+    "node-sass": "^4.13.0",
+    "npm": "^6.13.2",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.0.1",
+    "url-loader": "^2.3.0",
+    "vue": "^2.6.10",
+    "vue-loader": "^15.7.2",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.41.2",
+    "webpack-bundle-analyzer": "^3.6.0",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0",
+    "webpack-merge": "^4.2.2"
+  },
+  "dependencies": {}
+}

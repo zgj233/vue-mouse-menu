@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test the running of dist/index.js</title>
+  <meta name="viewport"
+        content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    #app {
+      padding: 10px;
+    }
+    table{
+      border-collapse: collapse;
+      border: 1px solid #555555;
+    }
+    td{
+      border: 1px solid #555555;
+      padding: 5px;
+    }
+    .usr-menu {
+      border-radius: 5px;
+      padding-top: 2px;
+      padding-bottom: 2px;
+      box-shadow: 2px 2px 1px #729cbe !important;
+    }
+    .usr-menu ul{
+      list-style: none;
+      padding: 0;
+      margin: auto;
+    }
+    .usr-menu li{
+      padding: 5px 8px;
+    }
+
+    li+li{
+      border-top: 1px solid #dddddd;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+  <p>Test the running of dist/index.js</p>
+  <p>Advanced examples</p>
+  <table v-usr="tapOption">
+    <thead>
+    <tr>
+      <td>Name</td>
+      <td>Age</td>
+      <td>hobby</td>
+      <td>Phone</td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr v-for="(person, p) in table">
+      <td>{{person.name}}</td>
+      <td>{{person.age}}</td>
+      <td>{{person.hobby}}</td>
+      <td>{{person.phone}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <just-do-it :mouse="mouseEvent" :option="mouseOption">
+    <ul>
+      <li @click="clickLi(item)" v-for="item in menuList">
+        {{item.txt}}
+      </li>
+    </ul>
+  </just-do-it>
+</div>
+
+
+<!--This index.js is copied from dist/index.js-->
+<script src="index.js"></script>
+<script>
+  Vue.use(vueMouseMenu, {
+    useTouchDirective: true,
+    touchDirectiveName: "usr",
+    globalComponentName: "just-do-it"
+  })
+  new Vue({
+    el: "#app",
+    data:function () {
+      return{
+        table: [
+          {
+            name: 'Jack',
+            age: 24,
+            hobby: "play computer game",
+            phone: 5432142
+          },
+          {
+            name: 'Bob',
+            age: 47,
+            hobby: "beer",
+            phone: 78-45545
+          },
+          {
+            name: 'Green',
+            age: 41,
+            hobby: "play football",
+            phone: 843135
+          },
+          {
+            name: 'Lilly',
+            age: 39,
+            hobby: "sing",
+            phone: "—"
+          },
+        ],
+        menuList: [
+          {
+            txt: "Copy to notebook",
+            val: 1
+          },
+          {
+            txt: "Cut Down",
+            val: 2
+          },
+          {
+            txt: "Refresh",
+            val: 3
+          },
+          {
+            txt: "Go to Other website",
+            val: 4
+          }
+        ],
+        mouseEvent: null,
+        mouseOption: {
+          className: "usr-menu",
+          visible: false,
+          pointx: 5,
+          pointy: 5,
+        },
+        tapOption:{
+          tap: 'double',
+          interval: 700,
+          preventTouchNative: true,
+        }
+      }
+    },
+    methods:{
+      clickLi(item){
+        alert(JSON.stringify(item));
+        this.mouseOption.visible = false;
+      }
+    },
+  })
+</script>
+</body>
+</html>
