@@ -21,7 +21,7 @@
       </tbody>
     </table>
 
-    <vue-mouse-menu :mouse="mouseEvent" :option="mouseOption">
+    <vue-mouse-menu :visible.sync="visible" :mouse="mouseEvent" :option="mouseOption">
       <ul>
         <li @click="clickLi(item)" v-for="item in menuList">
           {{item.txt}}
@@ -81,9 +81,9 @@
           }
         ],
         mouseEvent: null,
+        visible: false,
         mouseOption: {
           className: "usr-menu",
-          visible: false,
         },
       }
     },
@@ -92,14 +92,14 @@
         let self = this;
         if (e.button === 2) {
           self.mouseEvent = e;
-          self.mouseOption.visible = true
+          self.visible = true
         } else if (e.button === 0) {
-          self.mouseOption.visible = false
+          self.visible = false
         }
       },
       clickLi(item){
         alert(JSON.stringify(item));
-        this.mouseOption.visible = false;
+        this.visible = false;
       },
     }
   }

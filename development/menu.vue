@@ -1,5 +1,5 @@
 <template>
-  <div v-if="option.visible" :class="menuClass" :style="menuSty" ref="menu">
+  <div v-if="visible" :class="menuClass" :style="menuSty" ref="menu">
     <slot></slot>
   </div>
 </template>
@@ -12,12 +12,12 @@
       mouse: {},
       option: {
         type: Object,
-        default(){
-          return{
-            visible: false    //默认不显示
-          }
-        }
       },
+      visible: {
+        type: Boolean,
+        default: false,
+        required: true
+      }
     },
     data() {
       return {
@@ -25,14 +25,9 @@
         defaultOption: {
           className: '',    //用户自定义的类名
           preventNativePOP: true,   //是否阻止鼠标原生菜单弹出
-          visible: false,
           pointx: 0,    //离鼠标锚点的横间距
           pointy: 0,    //离鼠标锚点的纵间距
         },
-        slotArr:[
-          "header",
-          "footer"
-        ],
       }
     },
     computed: {
@@ -50,9 +45,9 @@
           self.mouseClick()
         })
       },
-      "option.visible"() {
+      "visible"() {
         const self = this;
-        touchEvent.visible = self.option.visible;
+        touchEvent.visible = self.visible;
         document.body.oncontextmenu = () => !self.config.preventNativePOP;     //阻止鼠标原生菜单弹出
       },
     },
@@ -67,9 +62,15 @@
       },
       doTap(position) {
         const self = this;
-        if (!(self.option.visible = !self.option.visible)) return;     //若面板关闭，则不进行后续操作
-        touchEvent.visible = self.option.visible;
-        self.$nextTick(()=>{
+        //若面板执行关闭操作，则不进行后续操作
+        if (self.visible){
+          self.$emit("update:visible", false)
+          return;
+        }
+
+        self.$emit("update:visible", true)
+
+        self.$nextTick(() => {
           let p = __computePosition(position[0], position[1], self);
           self.menuSty = `left: ${p.x_point}px; top: ${p.y_point}px;`
         })
@@ -77,12 +78,11 @@
     },
     created() {
       const self = this;
-      touchEvent.on('single', position=> self.doTap(position))
-      touchEvent.on('double', position=> self.doTap(position))
-      touchEvent.on('longPress', position=> self.doTap(position))
-      touchEvent.on('close', ()=>{
-        self.option.visible = false;
-        touchEvent.visible = false;
+      touchEvent.on('single', position => self.doTap(position))
+      touchEvent.on('double', position => self.doTap(position))
+      touchEvent.on('longPress', position => self.doTap(position))
+      touchEvent.on('close', () => {
+        self.$emit("update:visible", false);
       })
     }
   }
@@ -97,7 +97,7 @@
     let mX = x + self.config.pointx;
     let mY = y + self.config.pointy;
 
-    x_point = (mX+ el.clientWidth) <= allWidth ? mX : (allWidth - el.clientWidth - 5);
+    x_point = (mX + el.clientWidth) <= allWidth ? mX : (allWidth - el.clientWidth - 5);
     y_point = (mY + el.clientHeight) <= allHeight ? mY : (allHeight - el.clientHeight - 5);
     return {x_point: x_point, y_point: y_point}
   }

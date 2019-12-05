@@ -63,7 +63,7 @@
     </tbody>
   </table>
 
-  <just-do-it :mouse="mouseEvent" :option="mouseOption">
+  <just-do-it :visible.sync="visible" :mouse="mouseEvent" :option="mouseOption">
     <ul>
       <li @click="clickLi(item)" v-for="item in menuList">
         {{item.txt}}
@@ -132,10 +132,10 @@
         mouseEvent: null,
         mouseOption: {
           className: "usr-menu",
-          visible: false,
           pointx: 5,
           pointy: 5,
         },
+        visible: false,
         tapOption:{
           tap: 'double',
           interval: 700,

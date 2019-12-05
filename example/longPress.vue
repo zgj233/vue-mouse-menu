@@ -1,7 +1,7 @@
 <template>
-  <div class="main">
+  <div class="container">
     <h4>LongPress Example</h4>
-    <div v-tap="tapOption" class="list">
+    <div v-tap="tapOption" class="my-ul">
       <ul>
         <li v-for="(item, it) in list">{{item.txt + it}}</li>
       </ul>
@@ -10,20 +10,19 @@
     <p>1.In the developer mode of the browser</p>
     <p>2.View the effect on the phone</p>
 
-    <mouse-menu :option="mouseOption">
-      <div class="panel">
+    <vue-mouse-menu :visible.sync="visible" :option="mouseOption">
+      <div class="pop-box">
         <textarea v-model="textarea" rows="5"></textarea>
         <button type="button" @click="submit">Submit</button>
       </div>
-    </mouse-menu>
+    </vue-mouse-menu>
   </div>
 </template>
 
 <script>
   //Could imported by manually
-  import {Menu} from '@/development/index'
   export default {
-    name: "doubleTap",
+    name: "longPress",
     data() {
       return {
         list: [
@@ -38,20 +37,17 @@
           tap: 'longPress',
         },
         mouseOption: {
-          visible: false,
           className: 'usr-css'
         },
+        visible: false,
 
         textarea: "Thank you for using my plugin. Could you give me a star"
       }
     },
-    components:{
-      "mouse-menu": Menu
-    },
     methods: {
       submit() {
         alert(this.textarea);
-        this.mouseOption.visible = false;
+        this.visible = false;
       }
     },
     created() {
@@ -65,7 +61,7 @@
 <style scoped lang="scss" type="text/scss">
   @import "asset/color";
 
-  .main {
+  .container {
     padding: 10px;
     background: $darkGray;
     margin-bottom: 3rem;
@@ -74,7 +70,7 @@
     }
   }
 
-  .list {
+  .my-ul {
     background: $white-smoke;
     margin-bottom: 20px;
     width: 80%;
@@ -88,7 +84,7 @@
     }
   }
 
-  .panel {
+  .pop-box {
     textarea {
       width: 100%;
       margin-bottom: 10px;

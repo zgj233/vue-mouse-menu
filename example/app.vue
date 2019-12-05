@@ -15,7 +15,7 @@
     components:{
       MouseClick,
       DoubleTap,
-      LongPress
+      LongPress,
     }
   }
 </script>

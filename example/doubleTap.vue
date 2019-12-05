@@ -1,16 +1,14 @@
 <template>
   <div class="main">
     <h4>DoubleClick Example</h4>
-    <div v-tap class="list">
-      <ul>
-        <li v-for="(item, it) in list">{{item.txt + it}}</li>
-      </ul>
-    </div>
+    <ul v-tap class="list">
+      <li v-for="(item, it) in list">{{item.txt + it}}</li>
+    </ul>
 
     <p>1.In the developer mode of the browser</p>
     <p>2.View the effect on the phone</p>
 
-    <vue-mouse-menu :option="mouseOption">
+    <vue-mouse-menu :visible.sync="visible" :option="mouseOption">
       <div class="panel">
         <img src="./asset/panda.jpg" alt="panda">
 
@@ -34,8 +32,8 @@
           {txt: "List item "},
           {txt: "List item "},
         ],
+        visible: false,
         mouseOption: {
-          visible: false,
           className: 'usr-css'
         },
 
@@ -45,7 +43,7 @@
     methods: {
       submit() {
         alert(this.textarea);
-        this.mouseOption.visible = false;
+        this.visible = false;
       }
     }
   }
