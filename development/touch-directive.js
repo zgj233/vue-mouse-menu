@@ -6,6 +6,16 @@ function __emitTap(type, event) {
   touchEvent.emit(type, [Math.floor(pageX), Math.floor(pageY)])
 }
 
+function __preventSelectTxtCss(el){
+  el.style["-webkit-touch-callout"] = "none"
+  el.style["-webkit-user-select"] = "none"
+  el.style["-khtml-user-select"] = "none"
+  el.style["-moz-user-select"] = "none"
+  el.style["-ms-user-select"] = "none"
+  el.style["user-select"] = "none"
+  return el
+}
+
 let timer2longPress;
 
 export default {
@@ -14,7 +24,8 @@ export default {
       tap: 'double',
       interval: 500,      //默认时间间隔，只有double 的时候有用
       timekeep: 1000,     //默认时间长短，只有longPress 的时候有用
-      preventTouchNative: true,    //默认禁止原生手机端的touch事件
+      preventTouchNative: false,    //默认不阻止原生手机端的touch事件
+      preventSelectTxt: true,       //默认阻止手机端长按选中文字
     }
     const {value: usrOption} = binding;
     const tapOption = Object.assign(config, usrOption)
@@ -45,6 +56,10 @@ export default {
 
     el.addEventListener('touchstart', (event) => {
       if (tapOption.preventTouchNative) event.preventDefault();
+
+      if (tapOption.preventSelectTxt) {
+        __preventSelectTxtCss(el)
+      }
 
       if (tapOption.tap === "longPress"){
         touchEvent.emit("close");
