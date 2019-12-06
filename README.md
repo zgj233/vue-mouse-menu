@@ -3,9 +3,11 @@
 #### 特性
 1. 多端支持
 2. 可通过自定义指令一键调用
-3. 支持 v-cli 工程内引入和 传统<script>引入
+3. 支持 v-cli 工程内引入和 传统`<script>`引入
 4. 使用webpack4 和 vue2.6，打包更小，整个插件9kb
 5. 除了Vue之外无其它依赖项
+
+![demonstration2](https://github.com/zgj233/vue-mouse-menu/tree/master/example/asset/touch.gif)
 
 * * *
 **Download**
