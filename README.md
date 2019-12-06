@@ -4,7 +4,7 @@
 
 > A right-mouse menu plug-in for Vue.js 2+
 
-![demonstration](https://github.com/zgj233/vue-mouse-menu/blob/master/GIF.gif)
+![demonstration](https://github.com/zgj233/vue-mouse-menu/blob/v1.0.0/GIF.gif)
 
 ## Before run
 
@@ -184,7 +184,7 @@ See something cool.
 ```
 >And you will get
 
-![demonstration2](https://github.com/zgj233/vue-mouse-menu/blob/master/GIF2.gif)
+![demonstration2](https://github.com/zgj233/vue-mouse-menu/blob/v1.0.0/GIF2.gif)
 
 ## option
 <table>
