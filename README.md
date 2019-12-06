@@ -7,7 +7,7 @@
 4. 使用webpack4 和 vue2.6，打包更小，整个插件9kb
 5. 除了Vue之外无其它依赖项
 
-![demonstration2](https://github.com/zgj233/vue-mouse-menu/tree/master/example/asset/touch.gif)
+![demonstration](https://github.com/zgj233/vue-mouse-menu/blob/master/touch.gif)
 
 * * *
 **Download**
