@@ -16,7 +16,7 @@
     "profile-prod": "webpack --config webpack.prod.js --json > ./prod-stats.json"
   },
   "files": [
-    "dist"
+    "dist","README.md"
   ],
   "main": "dist/index.js",
   "peerDependencies": {
