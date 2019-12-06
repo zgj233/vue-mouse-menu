@@ -1,6 +1,6 @@
 {
   "name": "vue-mouse-menu",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "vue-mouse-menu is a vue2.6+ plug-in that supports multi-terminal operation and is used for pop-up menu",
   "author": "zgj233",
   "keywords": [
@@ -16,7 +16,8 @@
     "profile-prod": "webpack --config webpack.prod.js --json > ./prod-stats.json"
   },
   "files": [
-    "dist","README.md"
+    "dist",
+    "README.md"
   ],
   "main": "dist/index.js",
   "peerDependencies": {
