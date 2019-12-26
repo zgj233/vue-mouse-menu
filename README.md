@@ -1,11 +1,13 @@
 ### vue-mouse-menu 2.0
 >Support multi-terminal run of the pop-up menu plug-in
-#### 特性
-1. 多端支持
-2. 可通过自定义指令一键调用
-3. 支持 v-cli 工程内引入和 传统`<script>`引入
-4. 使用webpack4 和 vue2.6，打包更小，整个插件9kb
-5. 除了Vue之外无其它依赖项
+#### Features
+1. Support PC and mobile
+2. Can be invoked directly by custom instructions
+3. Supports import in vue-cli and traditional `<script>` intro
+4. Using webpack4 and vue2.6 results in a smaller package, with the entire plug-in only 9kb
+5. There are no dependencies other than Vue
+
+#### [中文文档](https://github.com/zgj233/vue-mouse-menu/blob/master/README.zh.md)
 
 ![demonstration](https://github.com/zgj233/vue-mouse-menu/blob/master/touch.gif)
 
@@ -19,24 +21,26 @@ or copy dist/index.js into your html
 <script src="dist/index.js"></script>
 ```
 
+#### [See Example](https://github.com/zgj233/vue-mouse-menu/tree/master/example)
+
 * * *
 
 **Use in HTML**
 ```html
 ···
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<!--将 dist/index.js  拷贝到你的项目里面-->
+<!--Copy dist/index.js to your project-->
 <script src="dist/index.js"></script>
 <script>
-    /* dist/index.js 会暴露一个 vueMouseMenu 变量*/
+    /* dist/index.js will exposes a vueMouseMenu variable*/
     Vue.use(vueMouseMenu)
     new Vue({
-        ···
+        //···
     })
 </script>
 
 ```
-**[More Example](https://github.com/zgj233/vue-mouse-menu/tree/master/dist-test)**
+**[FULL Example](https://github.com/zgj233/vue-mouse-menu/tree/master/dist-test)**
 
 * * *
 
@@ -52,47 +56,50 @@ new Vue({
 }).$mount('#app')
 
 ```
-**[More Example](https://github.com/zgj233/vue-mouse-menu/tree/master/example)**
+**[FULL Example](https://github.com/zgj233/vue-mouse-menu/tree/master/example)**
 
 * * *
-#### 配置(都有默认值，你可以不用管)  Configuration
-**载入插件配置项 vue.use(menu, objectOptions)**
+#### Configuration
+> It have default value, you can ignore it if there is no special need
+
+**Configuration items when the plug-in is loading**
+`vue.use(menu, objectOptions)`
 *objectOptions:*
 
-| 变量名 | 解释 | 类型 | 默认值 |
+| variable | explain | Type | default |
 | --- | --- | --- | --- |
-| useTouchDirective | 是否启用v-tap指令 | Boolean | true |
-| touchDirectiveName | 重命名v-tap指令 | String | tap |
-| useGlobalComponent | 将<vue-mouse-menu>设为全局组件 | Boolean | true |
-| globalComponentName | 重命名<vue-mouse-menu> | String | vue-mouse-menu |
+| useTouchDirective | Whether to enable`v-tap`directive | Boolean | true |
+| touchDirectiveName | rename`v-tap`directive | String | tap |
+| useGlobalComponent | Set`<vue-mouse-menu>`to the global component | Boolean | true |
+| globalComponentName | rename`<vue-mouse-menu>`component | String | vue-mouse-menu |
 
-**指令配置项  v-tap="tapOptions"**
+**Custom directive options**
+`v-tap="tapOptions"`
 *tapOptions:*
 
-| 变量名 | 解释 | 类型 | 默认值 |
+| variable | explain | Type | default |
 | --- | --- | --- | --- |
-| tap | 监听的touch类型 | double/single/longPress | double |
-| interval | 用于判断双击操作有效的最长时间间隔，只在tap='double'时有效 | Number | 500 |
-| timekeep | 用于判断长按操作有效的最短时间间隔，只在tap='longPress'时有效 | Number | 1000 |
-| preventSelectTxt | 在touch时阻止选取手机上面的文字 | Boolean | true |
-| preventTouchNative | 是否阻止原生touch事件 | Boolean | false |
+| tap | listening touch type | double/single/longPress | double |
+| interval | use to determine the maximum effective time interval for the double-click operation, Valid only at `tap='double'` | Number | 500 |
+| timekeep | use to determine the minimum effective time interval for the long-press operation, Valid only at `tap='longPress'` | Number | 1000 |
+| preventSelectTxt | prevent select text from the phone when in touch operation | Boolean | true |
+| preventTouchNative | whether to prevent native touch events | Boolean | false |
 
 **vue-mouse-menu props:**
 
-| 变量名 | 解释 | 类型 | 默认值 |
+| variable | explain | Type | default |
 | --- | --- | --- | --- |
-| mouse | 鼠标点击事件 | Object | — |
-| visible | 显示/隐藏 vue-mouse-menu 组件 | Boolean | false |
-| option | 关于弹出框的设置 | Object | 见下面 |
+| mouse | Mouse click event | Object | — |
+| visible | Show/hide `vue-mouse-menu` component | Boolean | false |
+| option | About the Settings of the pop-up box | Object | see below |
 
-option的各个设置
-*vue-mouse-menu.props.option:*
+**`vue-mouse-menu.props.option`**
 
-| 变量名 | 解释 | 类型 | 默认值 |
+| variable | explain | Type | default |
 | --- | --- | --- | --- |
-| className | 弹出框的css类名，用于定义弹出框的样式 | String | — |
-| preventNativePOP | 阻止原生鼠标菜单弹出 | Boolean | true |
-| pointx | 弹出框左上角锚点，相对点击位置的横距离 | Number | 0 |
-| pointy | 弹出框左上角锚点，相对点击位置的纵距离 | Number | 0 |
+| className | The CSS class name of the pop-up box that defines the style of the pop-up box | String | — |
+| preventNativePOP | Prevents native mouse menus popping up | Boolean | true |
+| pointx | Pop-up box upper left corner anchor point, relative to the horizontal distance of the click position | Number | 0 |
+| pointy | Pop-up box upper left corner anchor point, relative to the vertical distance of the click position | Number | 0 |
 
-**⭐老铁点个星星**
+**😄Please give me a star⭐**
