@@ -1,14 +1,14 @@
 <template>
   <div class="main">
     <h4>DoubleClick Example</h4>
-    <ul v-tap class="list">
+    <ul v-xixi="tapOption" class="list">
       <li v-for="(item, it) in list">{{item.txt + it}}</li>
     </ul>
 
     <p>1.In the developer mode of the browser</p>
     <p>2.View the effect on the phone</p>
 
-    <vue-mouse-menu :visible.sync="visible" :option="mouseOption">
+    <vue-mouse-menu :visible.sync="visible" source="two" :option="option">
       <div class="panel">
         <img src="./asset/panda.jpg" alt="panda">
 
@@ -33,7 +33,14 @@
           {txt: "List item "},
         ],
         visible: false,
-        mouseOption: {
+        tapOption:{
+          eventType: "double",
+          target: "two",
+          interval: 500,                //默认双击时间间隔不超过500ms时弹出菜单，该参数只有double 的时候有用
+          preventTouchNative: false,    //默认不阻止原生手机端的touch事件
+        },
+        
+        option: {
           className: 'usr-css'
         },
 

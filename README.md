@@ -2,9 +2,9 @@
 >Support multi-terminal run of the pop-up menu plug-in
 #### Features
 1. Support PC and mobile
-2. Can be invoked directly by custom instructions
+2. Can be invoked directly by custom directive
 3. Supports import in vue-cli and traditional `<script>` intro
-4. Using webpack4 and vue2.6 results in a smaller package, with the entire plug-in only 9kb
+4. Using webpack4 and vue2.6 results in a smaller package
 5. There are no dependencies other than Vue
 
 #### [中文文档](https://github.com/zgj233/vue-mouse-menu/blob/master/README.zh.md)
@@ -21,7 +21,54 @@ or copy dist/index.js into your html
 <script src="dist/index.js"></script>
 ```
 
-#### [See Example](https://github.com/zgj233/vue-mouse-menu/tree/master/example)
+* * *
+
+[Demo]()
+
+**Simple use in Vue-cli project**
+```javascript
+// in main.js
+import Vue from 'vue'
+import App from './app.vue'
+import menu from 'vue-mouse-menu' 
+Vue.config.productionTip = false;
+Vue.use(menu);
+new Vue({
+    render: h => h(App)
+}).$mount('#app')
+```
+
+```vue
+//in app.vue
+<template>
+  <div id="app" v-tap="option" style="width: 1000px; height: 1000px">
+    ···
+  </div>
+  
+  <vue-mouse-menu source="app" :visible.sync="visible">
+    <div>
+      ···
+    </div>
+  </vue-mouse-menu>
+</template>
+
+<script>
+  export default {
+    data(){
+      return{
+        option:{
+          target: "app",          //Corresponding to the 'source' parameter of vue-mouse-menu, required!
+          eventType: "single",    //The type of which event to listen for, required!
+                                  //List of ( single / double / longPress / mouseClick )
+        },
+        visible: false
+      }
+    }
+  }
+</script>
+```
+
+**[FULL Example](https://github.com/zgj233/vue-mouse-menu/tree/master/example)**
 
 * * *
 
@@ -37,6 +84,8 @@ or copy dist/index.js into your html
     new Vue({
         //···
     })
+    
+    //The same as vue-cli project's code
 </script>
 
 ```
@@ -44,62 +93,71 @@ or copy dist/index.js into your html
 
 * * *
 
-**Use in Vue project**
-```javascript
-import Vue from 'vue'
-import App from './app.vue'
-import menu from 'vue-mouse-menu' 
-Vue.config.productionTip = false;
-Vue.use(menu);
-new Vue({
-    render: h => h(App)
-}).$mount('#app')
-
-```
-**[FULL Example](https://github.com/zgj233/vue-mouse-menu/tree/master/example)**
-
-* * *
-#### Configuration
-> It have default value, you can ignore it if there is no special need
+#### Default Configuration
+> The default configuration of `vue-mouse-menu` is shown below
 
 **Configuration items when the plug-in is loading**
-`vue.use(menu, objectOptions)`
-*objectOptions:*
+```javascript
+// in main.js
+   import Vue from 'vue'
+   import App from './app.vue'
+   import menu from 'vue-mouse-menu' 
+   Vue.config.productionTip = false;
 
-| variable | explain | Type | default |
-| --- | --- | --- | --- |
-| useTouchDirective | Whether to enable`v-tap`directive | Boolean | true |
-| touchDirectiveName | rename`v-tap`directive | String | tap |
-| useGlobalComponent | Set`<vue-mouse-menu>`to the global component | Boolean | true |
-| globalComponentName | rename`<vue-mouse-menu>`component | String | vue-mouse-menu |
+   Vue.use(menu, {
+     directiveName: 'tap',    //rename v-tap directive
+     useGlobalComponent: true,    //whether set <vue-mouse-menu> to the global component
+     globalComponentName: 'vue-mouse-menu'    //rename <vue-mouse-menu> component	
+   });
+   
+   new Vue({
+       render: h => h(App)
+   }).$mount('#app')
+```
 
-**Custom directive options**
-`v-tap="tapOptions"`
-*tapOptions:*
+**Directive options and The props of `vue-mouse-menu`**
+```vue
+//  in vue component
+<template>
+  <div id="app" v-tap="directiveOption">
+    ···
+  </div>
+  
+  <vue-mouse-menu :visible.sync="visible" source="one" option="menuOption">
+    ···
+  </vue-mouse-menu>
+</template>
 
-| variable | explain | Type | default |
-| --- | --- | --- | --- |
-| tap | listening touch type | double/single/longPress | double |
-| interval | use to determine the maximum effective time interval for the double-click operation, Valid only at `tap='double'` | Number | 500 |
-| timekeep | use to determine the minimum effective time interval for the long-press operation, Valid only at `tap='longPress'` | Number | 1000 |
-| preventSelectTxt | prevent select text from the phone when in touch operation | Boolean | true |
-| preventTouchNative | whether to prevent native touch events | Boolean | false |
-
-**vue-mouse-menu props:**
-
-| variable | explain | Type | default |
-| --- | --- | --- | --- |
-| mouse | Mouse click event | Object | — |
-| visible | Show/hide `vue-mouse-menu` component | Boolean | false |
-| option | About the Settings of the pop-up box | Object | see below |
-
-**`vue-mouse-menu.props.option`**
-
-| variable | explain | Type | default |
-| --- | --- | --- | --- |
-| className | The CSS class name of the pop-up box that defines the style of the pop-up box | String | — |
-| preventNativePOP | Prevents native mouse menus popping up | Boolean | true |
-| pointx | Pop-up box upper left corner anchor point, relative to the horizontal distance of the click position | Number | 0 |
-| pointy | Pop-up box upper left corner anchor point, relative to the vertical distance of the click position | Number | 0 |
+<script>
+  export default {
+      name: "doubleTap",
+      data() {
+        return {
+          visible: false,
+          directiveOption:{   
+            eventType: "",    //The type of which event to listen for, required! List of ( single / double / longPress / mouseClick )
+            target: "",       //Corresponding to 'source' parameter, required!
+            interval: 500,    //Use to determine the maximum time interval for the effective double-touch operation, Valid only at eventType='double'
+            timekeep: 1000,   //Use to determine the minimum time interval for the effective long-press operation, Valid only at eventType='longPress'	
+            preventTouchNative: false,    //Whether to prevent native touch events
+            preventSelectTxt: true,       //Prevent select text from the phone when in touch operation
+            preventNativePOP: true,       //Prevent native mouse menus popping up from pc
+          },
+          
+          menuOption: {
+            className: '',    //The CSS class name of the pop-up box that defines the style of the pop-up box
+            pointx: 0,        //Pop-up box upper left corner anchor point, relative to the horizontal distance of the click position
+            pointy: 0,        //Pop-up box upper left corner anchor point, relative to the vertical distance of the click position
+          },
+        }
+      },
+      //···
+    }
+</script>
+```
 
 **😄Please give me a star⭐**
+
+## [License](/#license)
+[MIT](https://opensource.org/licenses/MIT)
+Copyright (c) 2017-present, zgj233

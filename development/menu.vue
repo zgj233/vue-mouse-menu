@@ -9,13 +9,16 @@
 
   export default {
     props: {
-      mouse: {},
       option: {
         type: Object,
       },
       visible: {
         type: Boolean,
         default: false,
+        required: true
+      },
+      source:{
+        type: String,
         required: true
       }
     },
@@ -24,7 +27,6 @@
         menuSty: '',
         defaultOption: {
           className: '',    //用户自定义的类名
-          preventNativePOP: true,   //是否阻止鼠标原生菜单弹出
           pointx: 0,    //离鼠标锚点的横间距
           pointy: 0,    //离鼠标锚点的纵间距
         },
@@ -39,27 +41,12 @@
       },
     },
     watch: {
-      mouse() {
-        const self = this;
-        self.$nextTick(() => {
-          self.mouseClick()
-        })
-      },
       "visible"() {
         const self = this;
-        touchEvent.visible = self.visible;
-        document.body.oncontextmenu = () => !self.config.preventNativePOP;     //阻止鼠标原生菜单弹出
+        touchEvent.visible[self.source] = self.visible;
       },
     },
     methods: {
-      mouseClick() {
-        const self = this;
-        let {layerX: x, layerY: y} = self.mouse;
-        self.$nextTick(() => {
-          let p = __computePosition(x, y, self);
-          self.menuSty = `left: ${p.x_point}px; top: ${p.y_point}px;`
-        })
-      },
       doTap(position) {
         const self = this;
         //若面板执行关闭操作，则不进行后续操作
@@ -75,13 +62,25 @@
           self.menuSty = `left: ${p.x_point}px; top: ${p.y_point}px;`
         })
       },
+
+      doMouseClick(position){
+        const self = this;
+        self.$emit("update:visible", true);
+        self.$nextTick(() => {
+          let p = __computePosition(position[0], position[1], self);
+          self.menuSty = `left: ${p.x_point}px; top: ${p.y_point}px;`
+        })
+      }
     },
     created() {
       const self = this;
-      touchEvent.on('single', position => self.doTap(position))
-      touchEvent.on('double', position => self.doTap(position))
-      touchEvent.on('longPress', position => self.doTap(position))
-      touchEvent.on('close', () => {
+      if (!touchEvent.events[self.source]) return;
+      touchEvent.on('mouseClick', self.source, position => self.doMouseClick(position))
+
+      touchEvent.on('single', self.source, position => self.doTap(position))
+      touchEvent.on('double', self.source, position => self.doTap(position))
+      touchEvent.on('longPress', self.source, position => self.doTap(position))
+      touchEvent.on('close', self.source, () => {
         self.$emit("update:visible", false);
       })
     }
@@ -97,8 +96,8 @@
     let mX = x + self.config.pointx;
     let mY = y + self.config.pointy;
 
-    x_point = (mX + el.clientWidth) <= allWidth ? mX : (allWidth - el.clientWidth - 5);
-    y_point = (mY + el.clientHeight) <= allHeight ? mY : (allHeight - el.clientHeight - 5);
+    x_point = (mX + el.clientWidth) <= allWidth ? mX : (allWidth - el.clientWidth - 8);
+    y_point = (mY + el.clientHeight) <= allHeight ? mY : (allHeight - el.clientHeight - 8);
     return {x_point: x_point, y_point: y_point}
   }
 </script>

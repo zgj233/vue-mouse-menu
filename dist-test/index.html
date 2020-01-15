@@ -13,6 +13,7 @@
     table{
       border-collapse: collapse;
       border: 1px solid #555555;
+      cursor: default;
     }
     td{
       border: 1px solid #555555;
@@ -28,6 +29,7 @@
       list-style: none;
       padding: 0;
       margin: auto;
+      cursor: pointer;
     }
     .usr-menu li{
       padding: 5px 8px;
@@ -43,7 +45,7 @@
 <div id="app">
   <p>Test the running of dist/index.js</p>
   <p>Advanced examples</p>
-  <table v-usr="tapOption">
+  <table v-usr="option">
     <thead>
     <tr>
       <td>Name</td>
@@ -63,7 +65,7 @@
     </tbody>
   </table>
 
-  <just-do-it :visible.sync="visible" :mouse="mouseEvent" :option="mouseOption">
+  <just-do-it :visible.sync="visible" source="one" :option="mouseOption">
     <ul>
       <li @click="clickLi(item)" v-for="item in menuList">
         {{item.txt}}
@@ -78,8 +80,7 @@
 <script>
   /*index.js exposes a vueMouseMenu variable*/
   Vue.use(vueMouseMenu, {
-    useTouchDirective: true,
-    touchDirectiveName: "usr",
+    directiveName: "usr",
     globalComponentName: "just-do-it"
   })
   new Vue({
@@ -130,24 +131,22 @@
             val: 4
           }
         ],
-        mouseEvent: null,
         mouseOption: {
           className: "usr-menu",
           pointx: 5,
-          pointy: 5,
+          pointy: 5
         },
         visible: false,
-        tapOption:{
-          tap: 'double',
-          interval: 700,
-          preventTouchNative: true,
+        option:{
+          eventType: 'mouseClick',
+          target: "one"
         }
       }
     },
     methods:{
       clickLi(item){
         alert(JSON.stringify(item));
-        this.mouseOption.visible = false;
+        this.visible = false;
       }
     },
   })

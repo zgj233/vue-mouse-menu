@@ -57,7 +57,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(),         //使用CleanWebpackPlugin清理webpack之前打包的文件
+    // new CleanWebpackPlugin(),      //使用CleanWebpackPlugin清理webpack之前打包的文件, 这会清除 dist/index.js
     new VueLoaderPlugin(),            //vue-loader 须要使用的插件
   ]
 }

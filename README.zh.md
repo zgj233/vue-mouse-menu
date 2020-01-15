@@ -4,7 +4,7 @@
 1. 支持PC和手机端
 2. 可通过自定义指令直接调用
 3. 支持 vue-cli 工程内引入和 传统`<script>`引入
-4. 使用webpack4 和 vue2.6，打包更小，整个插件9kb
+4. 使用webpack4 和 vue2.6，打包更小
 5. 除了Vue之外无其它依赖项
 
 [English Document](https://github.com/zgj233/vue-mouse-menu/blob/master/README.md)
@@ -21,7 +21,54 @@ or copy dist/index.js into your html
 <script src="dist/index.js"></script>
 ```
 
-**[使用示例](https://github.com/zgj233/vue-mouse-menu/tree/master/example)**
+**[在线展示]()**
+
+* * *
+
+**vue-cli 工程里面使用**
+```javascript
+// in main.js
+import Vue from 'vue'
+import App from './app.vue'
+import menu from 'vue-mouse-menu' 
+Vue.config.productionTip = false;
+Vue.use(menu);
+new Vue({
+    render: h => h(App)
+}).$mount('#app')
+```
+
+```vue
+//in app.vue
+<template>
+  <div id="app" v-tap="option" style="width: 1000px; height: 1000px">
+    ···
+  </div>
+  
+  <vue-mouse-menu source="app" :visible.sync="visible">
+    <div>
+      ···
+    </div>
+  </vue-mouse-menu>
+</template>
+
+<script>
+  export default {
+    data(){
+      return{
+        option:{
+          target: "app",          //对应 vue-mouse-menu 的source 参数, required!
+          eventType: "single",    //你要监听的事件类型, required!
+                                  //事件类型列表 ( single / double / longPress / mouseClick )
+        },
+        visible: false
+      }
+    }
+  }
+</script>
+```
+
+**[完整示例](https://github.com/zgj233/vue-mouse-menu/tree/master/example)**
 
 * * *
 
@@ -37,6 +84,8 @@ or copy dist/index.js into your html
     new Vue({
         //···
     })
+    
+    //然后就同vue-cli项目里相同的使用方法
 </script>
 
 ```
@@ -44,62 +93,72 @@ or copy dist/index.js into your html
 
 * * *
 
-**vue-cli 工程里面使用**
-```javascript
-import Vue from 'vue'
-import App from './app.vue'
-import menu from 'vue-mouse-menu' 
-Vue.config.productionTip = false;
-Vue.use(menu);
-new Vue({
-    render: h => h(App)
-}).$mount('#app')
 
-```
-**[完整示例](https://github.com/zgj233/vue-mouse-menu/tree/master/example)**
-
-* * *
-#### 配置
-> 都有默认值，如无特殊要求，你可以忽略下文
+#### 默认配置
+> 下面展示的是 `vue-mouse-menu` 的默认配置
 
 **插件载入时的配置项**
-`vue.use(menu, objectOptions)`
-*objectOptions:*
+```javascript
+// in main.js
+   import Vue from 'vue'
+   import App from './app.vue'
+   import menu from 'vue-mouse-menu' 
+   Vue.config.productionTip = false;
 
-| 变量名 | 解释 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| useTouchDirective | 是否启用v-tap指令 | Boolean | true |
-| touchDirectiveName | 重命名v-tap指令 | String | tap |
-| useGlobalComponent | 将<vue-mouse-menu>设为全局组件 | Boolean | true |
-| globalComponentName | 重命名<vue-mouse-menu> | String | vue-mouse-menu |
+   Vue.use(menu, {
+     directiveName: 'tap',    //重命名 v-tap 指令
+     useGlobalComponent: true,    //是否将 <vue-mouse-menu> 设为全局组件
+     globalComponentName: 'vue-mouse-menu'    //重命名 <vue-mouse-menu> 组件
+   });
+   
+   new Vue({
+       render: h => h(App)
+   }).$mount('#app')
+```
 
-**自定义指令配置项**
-`v-tap="tapOptions"`
-*tapOptions:*
+**指令的配置项和 `vue-mouse-menu` props 的配置项**
+```vue
+//  in vue component
+<template>
+  <div id="app" v-tap="directiveOption">
+    ···
+  </div>
+  
+  <vue-mouse-menu :visible.sync="visible" source="one" option="menuOption">
+    ···
+  </vue-mouse-menu>
+</template>
 
-| 变量名 | 解释 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| tap | 监听的touch类型 | double/single/longPress | double |
-| interval | 用于判断双击操作有效的最长时间间隔，只在tap='double'时有效 | Number | 500 |
-| timekeep | 用于判断长按操作有效的最短时间间隔，只在tap='longPress'时有效 | Number | 1000 |
-| preventSelectTxt | 在touch时阻止选取手机上面的文字 | Boolean | true |
-| preventTouchNative | 是否阻止原生touch事件 | Boolean | false |
-
-**vue-mouse-menu props:**
-
-| 变量名 | 解释 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| mouse | 鼠标点击事件 | Object | — |
-| visible | 显示/隐藏 vue-mouse-menu 组件 | Boolean | false |
-| option | 关于弹出框的设置 | Object | 见下面 |
-
-**`vue-mouse-menu.props.option`**
-
-| 变量名 | 解释 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| className | 弹出框的css类名，用于定义弹出框的样式 | String | — |
-| preventNativePOP | 阻止原生鼠标菜单弹出 | Boolean | true |
-| pointx | 弹出框左上角锚点，相对点击位置的横距离 | Number | 0 |
-| pointy | 弹出框左上角锚点，相对点击位置的纵距离 | Number | 0 |
+<script>
+  export default {
+      name: "doubleTap",
+      data() {
+        return {
+          visible: false,
+          directiveOption:{   
+            eventType: "",    //你要监听的事件类型, required! 包含以下选项：single / double / longPress / mouseClick
+            target: "",       //对应 vue-mouse-menu 的 'source' 参数, required!
+            interval: 500,    //有效双击事件最大的时间间隔, 只在 eventType='double' 时有效
+            timekeep: 1000,   //有效长按事件最小的时间间隔, 只在 eventType='longPress' 时有效
+            preventTouchNative: false,    //是否阻止原生的touch 事件
+            preventSelectTxt: true,       //是否阻止touch 事件时选中文字
+            preventNativePOP: true,       //是否阻止原生鼠标右键弹出菜单
+          },
+          
+          menuOption: {
+            className: '',    //自定义 vue-mouse-menu 的 css 样式名
+            pointx: 0,        //弹出菜单左上角锚点，离点击位置的水平距离
+            pointy: 0,        //弹出菜单左上角锚点，离点击位置的垂直距离
+          },
+        }
+      },
+      //···
+    }
+</script>
+```
 
 **😄老铁点个星星⭐**
+
+## [License](/#license)
+[MIT](https://opensource.org/licenses/MIT)
+Copyright (c) 2017-present, zgj233

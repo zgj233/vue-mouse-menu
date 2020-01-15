@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <h4>MouseClick Example</h4>
-    <table @mousedown="popMenu($event)">
+    <table v-xixi="option">
       <thead>
       <tr>
         <td>Name</td>
@@ -21,7 +21,7 @@
       </tbody>
     </table>
 
-    <vue-mouse-menu :visible.sync="visible" :mouse="mouseEvent" :option="mouseOption">
+    <vue-mouse-menu :visible.sync="visible" source="three" :option="mouseOption">
       <ul>
         <li @click="clickLi(item)" v-for="item in menuList">
           {{item.txt}}
@@ -80,23 +80,21 @@
             val: 4
           }
         ],
-        mouseEvent: null,
+        option:{
+          target: "three",
+          eventType: "mouseClick",
+          preventNativePOP: true,       //默认阻止原生鼠标事件
+        },
+
         visible: false,
         mouseOption: {
           className: "usr-menu",
+          pointx: 0,
+          pointy: 0
         },
       }
     },
     methods:{
-      popMenu(e) {
-        let self = this;
-        if (e.button === 2) {
-          self.mouseEvent = e;
-          self.visible = true
-        } else if (e.button === 0) {
-          self.visible = false
-        }
-      },
       clickLi(item){
         alert(JSON.stringify(item));
         this.visible = false;

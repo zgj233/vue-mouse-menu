@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h4>LongPress Example</h4>
+    <h4>local registration Example</h4>
     <div v-xixi="tapOption" class="my-ul">
       <ul>
         <li v-for="(item, it) in list">{{item.txt + it}}</li>
@@ -10,48 +10,51 @@
     <p>1.In the developer mode of the browser</p>
     <p>2.View the effect on the phone</p>
 
-    <vue-mouse-menu :visible.sync="visible" source="one" :option="option">
+    <just-do-it :visible.sync="visible" source="four" :option="option">
       <div class="pop-box">
         <textarea v-model="textarea" rows="5"></textarea>
-        <button type="button" @click="submit">Submit</button>
+        <button type="button" @click="submit">got it</button>
       </div>
-    </vue-mouse-menu>
+    </just-do-it>
   </div>
 </template>
 
 <script>
+  //Could imported by manually
+  import {Menu} from '@/development/index'
   export default {
-    name: "longPress",
+    name: "local-registration",
     data() {
       return {
         list: [
-          {txt: "LongPress item view - "},
-          {txt: "LongPress item view - "},
-          {txt: "LongPress item view - "},
-          {txt: "LongPress item view - "},
-          {txt: "LongPress item view - "},
-          {txt: "LongPress item view - "},
+          {txt: "local registration item view - "},
+          {txt: "local registration item view - "},
+          {txt: "local registration item view - "},
+          {txt: "local registration item view - "},
+          {txt: "local registration item view - "},
+          {txt: "local registration item view - "},
         ],
         tapOption: {
-          eventType: 'longPress',
-          target: "one",
-          timekeep: 1000,               //默认长按时间不小于1000ms弹出菜单，该参数只有longPress的时候有效,
-          preventSelectTxt: true,       //默认阻止手机端长按选中文字的css样式
+          eventType: 'single',
+          target: "four",
         },
         option: {
           className: 'usr-css'
         },
         visible: false,
 
-        textarea: "Thank you for using my plugin. Could you give me a star"
+        textarea: "component's source is component's id"
       }
+    },
+    components:{
+      "just-do-it": Menu
     },
     methods: {
       submit() {
         alert(this.textarea);
         this.visible = false;
       }
-    },
+    }
   }
 </script>
 
@@ -61,7 +64,7 @@
   .container {
     padding: 10px;
     background: $darkGray;
-    margin-bottom: 3rem;
+    margin-top: 3rem;
     p{
       color: $light-smoke;
     }
