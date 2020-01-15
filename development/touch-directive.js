@@ -47,9 +47,7 @@ function __dealTapEvent(el, option) {
   el.addEventListener('touchstart', (event) => {
     if (option.preventTouchNative) event.preventDefault();
 
-    if (option.preventSelectTxt) {
-      __preventSelectTxtCss(el)
-    }
+    if (option.preventSelectTxt) __preventSelectTxtCss(el);
 
     if (option.eventType === "longPress") {
       touchEvent.emit("close", key);
@@ -71,7 +69,7 @@ function __dealMouseEvent(el, option) {
       touchEvent.emit('close', option.target, event)
     }
     if (event.button === 2) {
-      let {layerX: x, layerY: y} = event;
+      let {pageX: x, pageY: y} = event;
       touchEvent.emit('mouseClick', option.target, [Math.floor(x), Math.floor(y)])
     }
   })

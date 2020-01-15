@@ -158,6 +158,6 @@ new Vue({
 
 **😄老铁点个星星⭐**
 
-## [License](/#license)
+## License
 [MIT](https://opensource.org/licenses/MIT)
 Copyright (c) 2017-present, zgj233
