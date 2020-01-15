@@ -21,7 +21,7 @@ or copy dist/index.js into your html
 <script src="dist/index.js"></script>
 ```
 
-**[在线展示]()**
+**[在线展示](https://codesandbox.io/s/vue-mouse-menu-demo-by-zgj233-vw37r)**
 
 * * *
 
@@ -80,7 +80,7 @@ new Vue({
 <script src="dist/index.js"></script>
 <script>
     /* dist/index.js 会暴露一个 vueMouseMenu 变量*/
-    Vue.use(vueMouseMenu)
+    Vue.use(vueMouseMenu.default)
     new Vue({
         //···
     })
@@ -107,7 +107,6 @@ new Vue({
 
    Vue.use(menu, {
      directiveName: 'tap',    //重命名 v-tap 指令
-     useGlobalComponent: true,    //是否将 <vue-mouse-menu> 设为全局组件
      globalComponentName: 'vue-mouse-menu'    //重命名 <vue-mouse-menu> 组件
    });
    

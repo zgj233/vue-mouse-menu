@@ -23,7 +23,7 @@ or copy dist/index.js into your html
 
 * * *
 
-[Demo]()
+[Demo](https://codesandbox.io/s/vue-mouse-menu-demo-by-zgj233-vw37r)
 
 **Simple use in Vue-cli project**
 ```javascript
@@ -80,7 +80,7 @@ new Vue({
 <script src="dist/index.js"></script>
 <script>
     /* dist/index.js will exposes a vueMouseMenu variable*/
-    Vue.use(vueMouseMenu)
+    Vue.use(vueMouseMenu.default)
     new Vue({
         //···
     })
@@ -106,7 +106,6 @@ new Vue({
 
    Vue.use(menu, {
      directiveName: 'tap',    //rename v-tap directive
-     useGlobalComponent: true,    //whether set <vue-mouse-menu> to the global component
      globalComponentName: 'vue-mouse-menu'    //rename <vue-mouse-menu> component	
    });
    

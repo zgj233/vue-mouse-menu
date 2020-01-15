@@ -1,6 +1,7 @@
 <template>
   <div class="main">
     <h4>DoubleClick Example</h4>
+    <h4 style="color:#d63200">You can only see it works on your phone</h4>
     <ul v-xixi="tapOption" class="list">
       <li v-for="(item, it) in list">{{item.txt + it}}</li>
     </ul>

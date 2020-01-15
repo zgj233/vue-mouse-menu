@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <h4>LongPress Example</h4>
+    <h4 style="color:#d63200">You can only see it works on your phone</h4>
     <div v-xixi="tapOption" class="my-ul">
       <ul>
         <li v-for="(item, it) in list">{{item.txt + it}}</li>

@@ -83,7 +83,7 @@
         option:{
           target: "three",
           eventType: "mouseClick",
-          preventNativePOP: true,       //默认阻止原生鼠标事件
+          //preventNativePOP: true,       //默认阻止原生鼠标事件
         },
 
         visible: false,

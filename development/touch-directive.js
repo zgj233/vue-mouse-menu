@@ -85,7 +85,7 @@ export default {
     const config = {
       interval: 500,      //默认时间间隔，只有double 的时候有用
       timekeep: 1000,     //默认时间长短，只有longPress 的时候有用
-      preventNativePOP: true,       //默认阻止原生鼠标事件
+      preventNativePOP: true,       //默认阻止原生鼠标右键弹出菜单
       preventTouchNative: false,    //默认不阻止原生手机端的touch事件
       preventSelectTxt: true,       //默认阻止手机端长按选中文字
     }

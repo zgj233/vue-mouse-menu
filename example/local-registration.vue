@@ -1,7 +1,8 @@
 <template>
-  <div class="container">
+  <div id="local-registration" class="container">
     <h4>local registration Example</h4>
-    <div v-xixi="tapOption" class="my-ul">
+    <h4 style="color:#d63200">You can only see it works on your phone</h4>
+    <div v-shoot="tapOption" class="my-ul">
       <ul>
         <li v-for="(item, it) in list">{{item.txt + it}}</li>
       </ul>
@@ -21,9 +22,9 @@
 
 <script>
   //Could imported by manually
-  import {Menu} from '@/development/index'
+  import {Menu, touchDirective} from '@/development/index'
+
   export default {
-    name: "local-registration",
     data() {
       return {
         list: [
@@ -45,6 +46,9 @@
 
         textarea: "component's source is component's id"
       }
+    },
+    directives: {
+      shoot: touchDirective
     },
     components:{
       "just-do-it": Menu
